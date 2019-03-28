@@ -1,0 +1,16 @@
+{{extend 'layout.html'}}
+
+<div class="container">
+    <div class="container">
+        <form action="{{=URL('index')}}" id="myForm" method="get">
+            <label for="i_url">Insira a URL:</label>
+            <input type="text" name="url" id="i_url">
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    {{if issubmit == True:}}
+    <div class="container">
+        <iframe src="{{=URL('static',filename)}}" width="1024" height="768"></iframe>
+    </div>
+    {{pass}}
+</div>
