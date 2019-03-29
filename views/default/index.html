@@ -1,16 +1,18 @@
-{{extend 'layout.html'}}
+{{extend 'pwlayout.html'}}
 
 <div class="container">
-    <div class="container">
-        <form action="{{=URL('index')}}" id="myForm" method="get">
-            <label for="i_url">Insira a URL:</label>
-            <input type="text" name="url" id="i_url">
-            <button type="submit">Enviar</button>
+    <div class="row">
+        <form class="form-inline" action="{{=URL('index')}}" id="myForm" method="get">
+            <div class="form-group">
+                <label for="i_url">Insira a URL:</label>
+                <input class="form-control" type="text" name="url" id="i_url">
+            </div>
+            <button class="btn btn-default" type="submit">Enviar</button>
         </form>
     </div>
     {{if issubmit == True:}}
-    <div class="container">
-        <iframe src="{{=URL('static',filename)}}" width="1024" height="768"></iframe>
+    <div class="row">
+        <iframe src="{{=URL('static',filename)}}" width="1024" height="768" border="0"></iframe>
     </div>
     {{pass}}
 </div>
