@@ -1,18 +1,52 @@
 {{extend 'pwlayout.html'}}
 
+<style>
+    .jumbotron {
+  background-color: #f4511e; /* Orange */
+  color: #ffffff;
+
+}
+    .resp-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%;
+}
+
+    .resp-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+</style>
+
 <div class="container">
-    <div class="row">
-        <form class="form-inline" action="{{=URL('index')}}" id="myForm" method="get">
-            <div class="form-group">
-                <label for="i_url">Insira a URL:</label>
-                <input class="form-control" type="text" name="url" id="i_url">
+    <div class="jumbotron text-center">
+        <h1>Paywall Breaker</h1>
+        <p>Break the paywall and be free!</p>
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <form class="form-horizontal" action="{{=URL('index')}}" method="get">
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="url" id="i_url" placeholder="URL" required>
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-danger">Break</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <button class="btn btn-default" type="submit">Enviar</button>
-        </form>
+            <div class="col-lg-2"></div>
+        </div>
     </div>
-    {{if issubmit == True:}}
-    <div class="row">
-        <iframe src="{{=URL('static',filename)}}" width="1024" height="768" border="0"></iframe>
-    </div>
-    {{pass}}
 </div>
+
+{{if issubmit == True:}}
+<div class="container">
+    <div class="resp-container">
+        <iframe class="resp-iframe" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen src="{{=URL('static',filename)}}" width="100%"></iframe>
+    </div>
+</div>
+{{pass}}
