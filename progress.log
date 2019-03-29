@@ -55,3 +55,17 @@
 [2019-03-28 13:40:44] EDIT paywall/views/default/index.html: 1
 [2019-03-28 13:41:32] EDIT paywall/controllers/default.py: -1
 [2019-03-28 13:43:12] EDIT paywall/modules/paywall.py: 1
+[2019-03-29 09:28:50] EDIT paywall/views/layout.html: -55
+[2019-03-29 09:29:19] CREATE pwlayout.html.py: 0
+[2019-03-29 09:29:30] EDIT paywall/models/pwlayout.html.py: 129
+[2019-03-29 09:29:48] CREATE pwlayout.html: 0
+[2019-03-29 09:30:05] EDIT paywall/views/pwlayout.html: 71
+[2019-03-29 09:30:18] EDIT paywall/views/default/index.html: 0
+[2019-03-29 09:36:24] EDIT paywall/views/default/index.html: 2
+[2019-03-29 09:36:42] EDIT paywall/views/default/index.html: 0
+[2019-03-29 09:37:07] EDIT paywall/views/default/index.html: -2
+[2019-03-29 09:38:01] EDIT paywall/views/default/index.html: 0
+[2019-03-29 09:39:13] EDIT paywall/views/default/index.html: 0
+[2019-03-29 09:39:27] EDIT paywall/views/default/index.html: 0
+[2019-03-29 09:40:27] EDIT paywall/views/default/index.html: 2
+[2019-03-29 09:46:48] EDIT paywall/views/pwlayout.html: -1
