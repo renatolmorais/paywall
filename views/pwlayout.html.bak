@@ -28,32 +28,31 @@
     <!-- All JavaScript at the bottom, except for Modernizr which enables
          HTML5 elements & feature detects -->
     <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
+    <style>
+        body {
+            overflow: hidden;
+        }
+    </style>
     <!-- Favicons -->
     {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
     {{block head}}{{end}}
   </head>
   <body>
-    <div class="w2p_flash alert alert-dismissable">{{=response.flash or ''}}</div>
-    <!-- Navbar ======================================= -->
 
-    <!-- Masthead ===================================== -->
-    {{block header}}
-    {{end}}
     <!-- Main ========================================= -->
     <!-- Begin page content -->
     <div class="container-fluid main-container">
       {{include}}
-      {{=response.toolbar() if response.show_toolbar else ''}}
     </div>
 
-    {{block footer}} <!-- this is default footer -->
+    {{block footer}}
+    <!-- this is default footer -->
     <footer class="footer container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <div class="copyright pull-left">{{=T('Copyright')}} &#169; {{=request.now.year}}</div>
+          <div class="copyright pull-left">&#169; {{=request.now.year}}</div>
           <div id="poweredBy" class="pull-right">
-            {{=T('Powered by')}}
-            <a href="http://www.web2py.com/">web2py</a>
+            by <a href="http://www.web2py.com/">web2py</a>
           </div>
         </div>
       </div>
@@ -62,6 +61,7 @@
     <!-- The javascript =============================== -->
     <script src="{{=URL('static','js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{=URL('static','js/web2py-bootstrap4.js')}}"></script>
+    <script src="{{=URL('static','js/button.js')}}"></script>
     {{block page_js}}{{end page_js}}
     {{if response.google_analytics_id:}}
     <!-- Analytics ==================================== -->

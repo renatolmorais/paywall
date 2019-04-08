@@ -1,0 +1,22 @@
+$(document).ready(
+    function()
+    {
+        $("#hide").click(
+            function()
+            {
+                if ($("#hide").text() == "Expandir")
+                {
+                    $("#hide").text("Encolher");
+                    $("#container").addClass("resp-container-expanded")
+                    $("#container").removeClass("resp-container-collapsed")
+                }
+                else
+                {
+                    $("#hide").text("Expandir");
+                    $("#container").addClass("resp-container-collapsed")
+                    $("#container").removeClass("resp-container-expanded")
+                }
+            }
+        );
+    }
+);
