@@ -35,12 +35,13 @@ def pw_break(url):
     #filename = 'c:\\Temp\\{0}.html'.format( hashlib.md5(url).hexdigest() )
     filename = '{0}.html'.format( hashlib.md5(url).hexdigest() )
     #path = os.path.join(request.folder, 'static', filename)
-    path = os.path.join('c:\\web2py\\applications\\paywall\\static', filename)
+    #path = os.path.join('c:\\web2py\\applications\\paywall\\static', filename)
+    path = os.path.join('/home/www-data/web2py/applications/paywall/static', filename)
     
     if not os.path.exists(path):
 
         #resp = requests.get(url,proxies=proxies,verify=False)
-        resp = requests.get(url,proxies=proxies)
+        resp = requests.get(url)
         text = resp.text.encode('utf-8')
 
         page = bs.BeautifulSoup(text)
@@ -48,6 +49,10 @@ def pw_break(url):
         n_scripts = len(page.findAll('script'))
         for i in range(1,n_scripts + 1): page.script.decompose()
 
+        if host == 'www.gazetaonline.com.br':
+            n_iframes = len(page.findAll('iframe'))
+        for i in range(1,n_iframes + 1): page.iframe.decompose()
+        
         if host == 'www.em.com.br':
             while page.find(attrs={'class':'news-blocked-content'}):
                 page.find(attrs={'class':'news-blocked-content'}).decompose()

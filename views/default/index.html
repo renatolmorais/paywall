@@ -1,5 +1,7 @@
 {{extend 'pwlayout.html'}}
-
+<script>
+    window.addEventListener('touchstart', {});
+</script>
 <style>
     .jumbotron {
     background-color: #f4511e; /* Orange */
@@ -13,6 +15,8 @@
             overflow: hidden;
             height: 100%;
             width: 100%;
+            -webkit-overflow-scrolling: touch;
+            overflow-y: scroll;
         }
 
         .resp-container-collapsed {
@@ -31,6 +35,8 @@
             overflow: hidden;
             height: 100%;
             width: 100%;
+            -webkit-overflow-scrolling: touch;
+            overflow-y: scroll;
         }
 
         .resp-container-collapsed {
