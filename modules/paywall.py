@@ -51,7 +51,7 @@ def pw_break(url):
 
         if host == 'www.gazetaonline.com.br':
             n_iframes = len(page.findAll('iframe'))
-        for i in range(1,n_iframes + 1): page.iframe.decompose()
+            for i in range(1,n_iframes + 1): page.iframe.decompose()
         
         if host == 'www.em.com.br':
             while page.find(attrs={'class':'news-blocked-content'}):
