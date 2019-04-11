@@ -35,45 +35,38 @@ def pw_break(url):
     #filename = 'c:\\Temp\\{0}.html'.format( hashlib.md5(url).hexdigest() )
     filename = '{0}.html'.format( hashlib.md5(url).hexdigest() )
     #path = os.path.join(request.folder, 'static', filename)
-    path = os.path.join('c:\\web2py\\applications\\paywall\\static', filename)
+    #path = os.path.join('c:\\web2py\\applications\\paywall\\static', filename)
+    path = os.path.join('/home/www-data/web2py/applications/paywall/static', filename)
     
     if not os.path.exists(path):
 
         #resp = requests.get(url,proxies=proxies,verify=False)
-        resp = requests.get(url,proxies=proxies)
+        session = requests.Session()
+        session.cookies.clear_session_cookies()
+        resp = session.get(url)
         text = resp.text.encode('utf-8')
 
-        page = bs.BeautifulSoup(text)
-
-        n_scripts = len(page.findAll('script'))
-        for i in range(1,n_scripts + 1): page.script.decompose()
-
-        if host == 'www.em.com.br':
-            while page.find(attrs={'class':'news-blocked-content'}):
-                page.find(attrs={'class':'news-blocked-content'}).decompose()
-            while page.find(attrs={'class':'news-blocked js-news-blocked'}):
-                page.find(attrs={'class':'news-blocked js-news-blocked'}).decompose()
-            while page.find(attrs={'class':'news-blocked js-news-blocked-login'}):
-                page.find(attrs={'class':'news-blocked js-news-blocked-login'}).decompose()
-
-        #divs = page.findAll('div')
-
-        #sys.exit(0)
-
-        # retirar tags <script>
-        #regex = '<script.*>.*</script>'
-        #text = re.sub(regex,'',text)
-
-        #regex_list = []
-        #regex_list.append('<script.*>.*</script>')
-
-        #if host == 'www.em.com.br':
-        #	print 'estado de minas'
-        #	regex = '<div class=.*blocked.*>.*?</div>'
-        #	text = re.sub(regex,'',text)
+        if host == 'politica.estadao.com.br':
+            html_page = text
+        else:
+            page = bs.BeautifulSoup(text)
+            n_scripts = len(page.findAll('script'))
+            for i in range(1,n_scripts + 1):
+                page.script.decompose()
+            if host == 'www.gazetaonline.com.br':
+                n_iframes = len(page.findAll('iframe'))
+                for i in range(1,n_iframes + 1): page.iframe.decompose()
+            if host == 'www.em.com.br':
+                while page.find(attrs={'class':'news-blocked-content'}):
+                    page.find(attrs={'class':'news-blocked-content'}).decompose()
+                while page.find(attrs={'class':'news-blocked js-news-blocked'}):
+                    page.find(attrs={'class':'news-blocked js-news-blocked'}).decompose()
+                while page.find(attrs={'class':'news-blocked js-news-blocked-login'}):
+                    page.find(attrs={'class':'news-blocked js-news-blocked-login'}).decompose()
+            html_page = str(page)
 
         with open(path,'w') as fp:
-            fp.write( str(page) )
+            fp.write( html_page )
 
         #print 'arquivo impresso em {0}.html'.format(filename)
     return filename
