@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(
       //var firstHref = $("a[href^='http']").eq(0).attr("href");
 	  var firstHref = $(location).attr("href");
 
-	  var pw_url = "http://www.pwbreaker.com/index?url=" + firstHref;
+	  var pw_url = "http://www.pwbreaker.com/index?url=" + encodeURIComponent(firstHref);
 
       //console.log("http://www.pwbreaker.com");
 
