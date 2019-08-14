@@ -4,20 +4,23 @@
 # this file is released under public domain and you can use without limitations
 # -------------------------------------------------------------------------
 import paywall
+from os.path import join
 
 # ---- example index page ----
 def index():
-    response.flash = T("Hello World")
+    response.flash = T("Paywall Breaker")
     filename = ''
+    html_page = ''
     #return dict(message=T('Welcome to web2py!'))
     if request.vars.url:
-        filename = paywall.pw_break(request.vars.url)
+        filename,html_page = paywall.pw_break(request.vars.url)
         issubmit = True
     else:
         issubmit = False
     return dict(
         url=request.vars.url,
         filename=filename,
+        content=html_page,
         issubmit=issubmit,
         )
 

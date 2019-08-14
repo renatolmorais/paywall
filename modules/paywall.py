@@ -34,9 +34,11 @@ def pw_break(url):
 
     #filename = 'c:\\Temp\\{0}.html'.format( hashlib.md5(url).hexdigest() )
     filename = '{0}.html'.format( hashlib.md5(url).hexdigest() )
+    page = None
+    html_page = ''
     #path = os.path.join(request.folder, 'static', filename)
     #path = os.path.join('c:\\web2py\\applications\\paywall\\static', filename)
-    path = os.path.join('/home/www-data/web2py/applications/paywall/static', filename)
+    path = os.path.join('/web/web2py/applications/paywall/static', filename)
     
     if not os.path.exists(path):
 
@@ -44,6 +46,7 @@ def pw_break(url):
         session = requests.Session()
         session.cookies.clear_session_cookies()
         resp = session.get(url)
+        #text = unicode( resp.text.decode('utf-8',errors='ignore') )
         text = resp.text.encode('utf-8')
 
         if host == 'politica.estadao.com.br':
@@ -51,11 +54,11 @@ def pw_break(url):
         else:
             page = bs.BeautifulSoup(text)
             n_scripts = len(page.findAll('script'))
-            for i in range(1,n_scripts + 1):
+            for i in range(0,n_scripts):
                 page.script.decompose()
             if host == 'www.gazetaonline.com.br':
                 n_iframes = len(page.findAll('iframe'))
-                for i in range(1,n_iframes + 1): page.iframe.decompose()
+                for i in range(0,n_iframes): page.iframe.decompose()
             if host == 'www.em.com.br':
                 while page.find(attrs={'class':'news-blocked-content'}):
                     page.find(attrs={'class':'news-blocked-content'}).decompose()
@@ -63,12 +66,19 @@ def pw_break(url):
                     page.find(attrs={'class':'news-blocked js-news-blocked'}).decompose()
                 while page.find(attrs={'class':'news-blocked js-news-blocked-login'}):
                     page.find(attrs={'class':'news-blocked js-news-blocked-login'}).decompose()
-            html_page = str(page)
+            if host == 'super.abril.com.br':
+                #while page.findAll('header'): page.header.decompose()
+                while page.findAll('ul'): page.ul.decompose()
+            html_page = str(page.body)
+            #html_page = ''
+            #for elem in page.body.contents: html_page += str(elem)
+            #html_page = str(page)
 
-        with open(path,'w') as fp:
-            fp.write( html_page )
+        with open(path,'w') as fp: fp.write( html_page )
+    else:
+        #page = bs.BeautifulSoup( unicode( file(path).read().decode('utf-8',errors='ignore') ) )
+        html_page = file(path).read()
 
-        #print 'arquivo impresso em {0}.html'.format(filename)
-    return filename
+    return filename,html_page
 
     #return str(page)

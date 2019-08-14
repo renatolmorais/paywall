@@ -188,6 +188,7 @@
 'Overview': 'Overview',
 'Password': 'Password',
 "Password fields don't match": 'I campi password non sono uguali',
+'Paywall Breaker': 'Paywall Breaker',
 'Permission': 'Permission',
 'Permissions': 'Permissions',
 'please input your password again': 'perfavore reimmeti la tua password',
