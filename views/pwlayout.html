@@ -20,7 +20,7 @@
     <meta property="og:image" content="{{=image}}">
     <meta property="og:image:width" content="{{=width}}">
     <meta property="og:image:height" content="{{=height}}">
-    <meta property="og:url" content="{{=url}}">
+    <meta property="og:url" content="{{=URL('index','?url={0}'.format(url))}}">
     <title>{{=response.title or request.application}}</title>
     {{else:}}
     <meta property="og:title" content="Paywall Breaker">
