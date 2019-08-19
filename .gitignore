@@ -6,3 +6,4 @@ errors/**
 *.pyc
 modules/*.pyc
 views/*.bak
+modules/*.bak
