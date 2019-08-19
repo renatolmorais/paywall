@@ -11,9 +11,10 @@ def index():
     response.flash = T("Paywall Breaker")
     filename = ''
     html_page = ''
+    meta = {}
     #return dict(message=T('Welcome to web2py!'))
     if request.vars.url:
-        filename,html_page = paywall.pw_break(request.vars.url)
+        filename,html_page,meta = paywall.pw_break(request.vars.url)
         issubmit = True
     else:
         issubmit = False
@@ -22,6 +23,11 @@ def index():
         filename=filename,
         content=html_page,
         issubmit=issubmit,
+        title=meta.get('title',''),
+        description=meta.get('description',''),
+        image=meta.get('image',''),
+        width=meta.get('width',''),
+        height=meta.get('height',''),
         )
 
 # ---- API (example) -----
