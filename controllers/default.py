@@ -23,9 +23,9 @@ def index():
         filename=filename,
         content=html_page,
         issubmit=issubmit,
-        title=meta.get('title',''),
-        description=meta.get('description',''),
-        image=meta.get('image',''),
+        title=meta.get('title','Paywall'),
+        description=meta.get('description','The paywall has been broken'),
+        image=meta.get('image',URL('static','images/favicon.png')),
         width=meta.get('width',''),
         height=meta.get('height',''),
         )
