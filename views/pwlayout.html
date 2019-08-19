@@ -14,12 +14,21 @@
           user-scalable = yes allows the user to zoom in -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta property="og:title" content="">
-    <meta property="og:description" content="">
-    <meta property="og:imagem" content="">
-    <meta property="og:url" content="">
-
+    {{if issubmit == True:}}
+    <meta property="og:title" content="{{=title}}">
+    <meta property="og:description" content="{{=description}}">
+    <meta property="og:image" content="{{=image}}">
+    <meta property="og:image:width" content="{{=width}}">
+    <meta property="og:image:height" content="{{=height}}">
+    <meta property="og:url" content="{{=url}}">
     <title>{{=response.title or request.application}}</title>
+    {{else:}}
+    <meta property="og:title" content="Paywall Breaker">
+    <meta property="og:description" content="Break the paywall and be free!">
+      <meta property="og:url" content="https://www.pwbreaker.com">
+      <title>Paywall Breaker</title>
+    {{pass}}
+
     <!-- http://dev.w3.org/html5/markup/meta.name.html -->
     <meta name="application-name" content="{{=request.application}}">
     <!-- Speaking of Google, don't forget to set your site up:
