@@ -58,12 +58,12 @@ def pw_break(url):
         else:
             page = bs.BeautifulSoup(text)
 
-            meta['title'] = page.find(attrs={'property':'og:title'}).attrs[1][1]
-            meta['description'] = page.find(attrs={'property':'og:description'}).attrs[1][1]
-            meta['image'] = page.find(attrs={'property':'og:image'}).attrs[1][1]
-            meta['width'] = page.find(attrs={'property':'og:image:width'}).attrs[1][1]
-            meta['height'] = page.find(attrs={'property':'og:image:height'}).attrs[1][1]
-            meta['url'] = page.find(attrs={'property':'og:url'}).attrs[1][1]
+            meta['title'] = page.find(attrs={'property':'og:title'}).attrs[1][1] if page.find(attrs={'property':'og:title'}) != None else ''
+            meta['description'] = page.find(attrs={'property':'og:description'}).attrs[1][1] if page.find(attrs={'property':'og:description'}) != None else ''
+            meta['image'] = page.find(attrs={'property':'og:image'}).attrs[1][1] if page.find(attrs={'property':'og:image'}) != None else ''
+            meta['width'] = page.find(attrs={'property':'og:image:width'}).attrs[1][1] if page.find(attrs={'property':'og:image:width'}) != None else ''
+            meta['height'] = page.find(attrs={'property':'og:image:height'}).attrs[1][1] if page.find(attrs={'property':'og:image:height'}) != None else ''
+            meta['url'] = page.find(attrs={'property':'og:url'}).attrs[1][1] if page.find(attrs={'property':'og:url'}) != None else ''
 
             n_scripts = len(page.findAll('script'))
             for i in range(0,n_scripts):
