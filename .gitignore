@@ -3,3 +3,5 @@ errors/**
 *.bak
 *.log
 *.pyc
+modules/*.pyc
+views/*.bak
