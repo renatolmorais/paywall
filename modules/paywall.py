@@ -8,6 +8,7 @@ import re
 import hashlib
 import BeautifulSoup as bs
 from bs4 import BeautifulSoup
+import json
 
 def pw_break(url):
 
@@ -34,13 +35,16 @@ def pw_break(url):
 
     #filename = 'c:\\Temp\\{0}.html'.format( hashlib.md5(url).hexdigest() )
     filename = '{0}.html'.format( hashlib.md5(url).hexdigest() )
+    metafilename = '{0}.json'.format( hashlib.md5(url).hexdigest() )
     page = None
     html_page = ''
+    meta = {}
     #path = os.path.join(request.folder, 'static', filename)
     #path = os.path.join('c:\\web2py\\applications\\paywall\\static', filename)
-    path = os.path.join('/web/web2py/applications/paywall/static', filename)
+    path_filename = os.path.join('/web/web2py/applications/paywall/static', filename)
+    path_metafilename = os.path.join('/web/web2py/applications/paywall/static', metafilename)
     
-    if not os.path.exists(path):
+    if not os.path.exists(path_filename):
 
         #resp = requests.get(url,proxies=proxies,verify=False)
         session = requests.Session()
@@ -53,6 +57,14 @@ def pw_break(url):
             html_page = text
         else:
             page = bs.BeautifulSoup(text)
+
+            meta['title'] = page.find(attrs={'property':'og:title'}).attrs[1][1]
+            meta['description'] = page.find(attrs={'property':'og:description'}).attrs[1][1]
+            meta['image'] = page.find(attrs={'property':'og:image'}).attrs[1][1]
+            meta['width'] = page.find(attrs={'property':'og:image:width'}).attrs[1][1]
+            meta['height'] = page.find(attrs={'property':'og:image:height'}).attrs[1][1]
+            meta['url'] = page.find(attrs={'property':'og:url'}).attrs[1][1]
+
             n_scripts = len(page.findAll('script'))
             for i in range(0,n_scripts):
                 page.script.decompose()
@@ -74,11 +86,13 @@ def pw_break(url):
             #for elem in page.body.contents: html_page += str(elem)
             #html_page = str(page)
 
-        with open(path,'w') as fp: fp.write( html_page )
+        with open(path_filename,'w') as fp: fp.write( html_page )
+        with open(path_metafilename,'w') as fp: json.dump( meta,fp )
     else:
         #page = bs.BeautifulSoup( unicode( file(path).read().decode('utf-8',errors='ignore') ) )
-        html_page = file(path).read()
+        html_page = file(path_filename).read()
+        meta = json.load( file( path_metafilename ) ) if os.path.exists( path_metafilename ) else {}
 
-    return filename,html_page
+    return filename,html_page,meta
 
     #return str(page)
