@@ -60,10 +60,10 @@ def pw_break(url):
 
             meta['title'] = page.find(attrs={'property':'og:title'}).attrs[1][1] if page.find(attrs={'property':'og:title'}) != None else ''
             meta['description'] = page.find(attrs={'property':'og:description'}).attrs[1][1] if page.find(attrs={'property':'og:description'}) != None else ''
-            meta['image'] = page.find(attrs={'property':'og:image'}).attrs[1][1] if page.find(attrs={'property':'og:image'}) != None else ''
-            meta['width'] = page.find(attrs={'property':'og:image:width'}).attrs[1][1] if page.find(attrs={'property':'og:image:width'}) != None else ''
-            meta['height'] = page.find(attrs={'property':'og:image:height'}).attrs[1][1] if page.find(attrs={'property':'og:image:height'}) != None else ''
-            meta['url'] = page.find(attrs={'property':'og:url'}).attrs[1][1] if page.find(attrs={'property':'og:url'}) != None else ''
+            if page.find(attrs={'property':'og:image'}): meta['image'] = page.find(attrs={'property':'og:image'}).attrs[1][1]
+            meta['width'] = page.find(attrs={'property':'og:image:width'}).attrs[1][1] if page.find(attrs={'property':'og:image:width'}) != None else '400'
+            meta['height'] = page.find(attrs={'property':'og:image:height'}).attrs[1][1] if page.find(attrs={'property':'og:image:height'}) != None else '400'
+            meta['url'] = page.find(attrs={'property':'og:url'}).attrs[1][1] if page.find(attrs={'property':'og:url'}) != None else url
 
             n_scripts = len(page.findAll('script'))
             for i in range(0,n_scripts):
@@ -81,6 +81,11 @@ def pw_break(url):
             if host == 'super.abril.com.br':
                 #while page.findAll('header'): page.header.decompose()
                 while page.findAll('ul'): page.ul.decompose()
+                if page.find('header',attrs={'class':'header'}) != None: page.find('header',attrs={'class':'header'}).decompose()
+                if page.find('div',attrs={'class':'sidebar-top hidden-xs hidden-sm'}) != None: page.find('div',attrs={'class':'sidebar-top hidden-xs hidden-sm'}).decompose()
+                if page.find('div',attrs={'class':'widget-cover-container'}) != None: page.find('div',attrs={'class':'widget-cover-container'}).decompose()
+                if page.find('section',attrs={'class':'comments'}) != None: page.find('section',attrs={'class':'comments'}).decompose()
+                if page.find('section',attrs={'class':'sidebar-above-footer'}) != None: page.find('section',attrs={'class':'sidebar-above-footer'}).decompose()
             html_page = str(page.body)
             #html_page = ''
             #for elem in page.body.contents: html_page += str(elem)
