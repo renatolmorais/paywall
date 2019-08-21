@@ -26,8 +26,8 @@ def index():
         title=meta.get('title','Paywall'),
         description=meta.get('description','The paywall has been broken'),
         image=meta.get('image',URL('static','images/favicon.png')),
-        width=meta.get('width',''),
-        height=meta.get('height',''),
+        width=meta.get('width','400'),
+        height=meta.get('height','400'),
         )
 
 # ---- API (example) -----
