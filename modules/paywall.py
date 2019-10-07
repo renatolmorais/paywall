@@ -78,6 +78,19 @@ def pw_break(url):
                     page.find(attrs={'class':'news-blocked js-news-blocked'}).decompose()
                 while page.find(attrs={'class':'news-blocked js-news-blocked-login'}):
                     page.find(attrs={'class':'news-blocked js-news-blocked-login'}).decompose()
+                to_decompose = {
+                        'div':['login-signature-call-bottom hidden-no-important show-loginwall-login-active-inline','nav-side__container','news-card__content',],
+                        'small':['hidden-print txt-no-serif',],
+                        'p':['text-xs-center',],
+                        'footer':['footer bg-gray-extra',],
+                        'nav':['fixed-btn-uai','nav-main','nav-main pt-8 pb-8 pt-xs-7 pb-xs-7'],
+                        'section':['bg-gray-extra mt-20','bg-gray-extra'],
+                }
+
+                for p_tag,cssclasslist in to_decompose.iteritems():
+                    for elem in page.findAll(p_tag):
+                        for cssclass in cssclasslist:
+                            if page.find(p_tag,attrs={'class':cssclass}) != None: page.find(p_tag,attrs={'class':cssclass}).decompose()
             if host == 'super.abril.com.br':
                 #while page.findAll('header'): page.header.decompose()
                 while page.findAll('ul'): page.ul.decompose()
