@@ -1,3 +1,4 @@
+languages/**
 static/*.html
 static/*.json
 errors/**
