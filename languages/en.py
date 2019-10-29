@@ -102,6 +102,7 @@
 'or import from csv file': 'or import from csv file',
 'Other Recipes': 'Other Recipes',
 'Overview': 'Overview',
+'Paywall Breaker': 'Paywall Breaker',
 'Permission': 'Permission',
 'Permissions': 'Permissions',
 'Plugins': 'Plugins',

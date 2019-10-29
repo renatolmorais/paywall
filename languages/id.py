@@ -31,6 +31,7 @@
 '1 year ago': '1 tahun yang lalu',
 '< Previous': '< Sebelumnya',
 '?': '?',
+'@markmin\x01An error occured, please [[reload %s]] the page': 'An error occured, please [[reload %s]] the page',
 '``**not available**``:red (requires the Python [[guppy http://pypi.python.org/pypi/guppy/ popup]] library)': '``**not available**``:red (requires the Python [[guppy http://pypi.python.org/pypi/guppy/ popup]] library)',
 'About': 'Tentang',
 'About application': 'Tentang Aplikasi',

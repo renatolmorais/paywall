@@ -295,6 +295,7 @@
 'Password changed': 'Contraseña cambiada',
 "Password fields don't match": 'Los campos de contraseña no coinciden',
 'Password reset': 'Reinicio de contraseña',
+'Paywall Breaker': 'Paywall Breaker',
 'Peeking at file': 'Visualizando archivo',
 'Permission': 'Permiso',
 'Permissions': 'Permisos',
