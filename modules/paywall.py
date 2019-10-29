@@ -51,7 +51,9 @@ def pw_break(url):
         session.cookies.clear_session_cookies()
         resp = session.get(url)
         #text = unicode( resp.text.decode('utf-8',errors='ignore') )
-        text = resp.text.encode('utf-8')
+        #text = resp.text.encode('utf-8')
+        text = resp.text
+        #charset = 'utf-8'
 
         if host == 'politica.estadao.com.br':
             html_page = text
@@ -99,6 +101,15 @@ def pw_break(url):
                 if page.find('div',attrs={'class':'widget-cover-container'}) != None: page.find('div',attrs={'class':'widget-cover-container'}).decompose()
                 if page.find('section',attrs={'class':'comments'}) != None: page.find('section',attrs={'class':'comments'}).decompose()
                 if page.find('section',attrs={'class':'sidebar-above-footer'}) != None: page.find('section',attrs={'class':'sidebar-above-footer'}).decompose()
+            if host == 'www.gazetadopovo.com.br' or host == 'gazetadopovo.com.br':
+                while page.findAll('svg'): page.svg.decompose()
+                if page.find('div',attrs={'class':'header'}) != None: page.find('div',attrs={'class':'header'}).decompose()
+                if page.find('div',attrs={'class':'wrapper'}) != None: page.find('div',attrs={'class':'wrapper'}).decompose()
+                if page.find('div',attrs={'class':'breadcrumb'}) != None: page.find('div',attrs={'class':'breadcrumb'}).decompose()
+                if page.find('div',attrs={'class':'js-touchpoint c-touchpoint-post-footer'}) != None: page.find('div',attrs={'class':'js-touchpoint c-touchpoint-post-footer'}).decompose()
+                if page.find('div',attrs={'class':'js-touchpoint c-touchpoint-post-footerFixed'}) != None: page.find('div',attrs={'class':'js-touchpoint c-touchpoint-post-footerFixed'}).decompose()
+                if page.find('div',attrs={'class':'c-communication-errors user-report'}) != None: page.find('div',attrs={'class':'c-communication-errors user-report'}).decompose()
+                if page.find('footer',attrs={'class':'c-footer'}) != None: page.find('footer',attrs={'class':'c-footer'}).decompose()
             html_page = str(page.body)
             #html_page = ''
             #for elem in page.body.contents: html_page += str(elem)
