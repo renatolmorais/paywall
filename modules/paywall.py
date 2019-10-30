@@ -86,8 +86,8 @@ def pw_break(url):
     meta = {}
     #path = os.path.join(request.folder, 'static', filename)
     #path = os.path.join('c:\\web2py\\applications\\paywall\\static', filename)
-    path_filename = os.path.join('/web/web2py/applications/paywall/static', filename)
-    path_metafilename = os.path.join('/web/web2py/applications/paywall/static', metafilename)
+    path_filename = os.path.join('/web/web2py/applications/paywall/static/pages', filename)
+    path_metafilename = os.path.join('/web/web2py/applications/paywall/static/pages', metafilename)
 
     if not os.path.exists(path_filename):
 
@@ -174,7 +174,7 @@ def pw_break(url):
         with open(path_metafilename,'w') as fp: json.dump( meta,fp )
     else:
         #page = bs.BeautifulSoup( unicode( file(path).read().decode('utf-8',errors='ignore') ) )
-        html_page = file(path_filename).read()
+        #html_page = file(path_filename).read() if os.path.exists( path_filename ) else {}
         meta = json.load( file( path_metafilename ) ) if os.path.exists( path_metafilename ) else {}
 
     return filename,meta
