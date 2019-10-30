@@ -10,6 +10,58 @@ import BeautifulSoup as bs
 from bs4 import BeautifulSoup
 import json
 
+'''
+    URL do Estado de Minas possui uma DIV que mostra o paywall
+    <div class="news-blocked-content">...</div>
+    <div class="news-blocked js-news-blocked">...</div>
+    <div class="news-blocked js-news-blocked-login">...</div>
+    '''
+
+tags_to_remove_by_host = {
+	'www.em.com.br':
+	{
+		'div':{'class':	['login-signature-call-bottom hidden-no-important show-loginwall-login-active-inline','nav-side__container','news-card__content','news-blocked-content','news-blocked js-news-blocked','news-blocked js-news-blocked-login','img-mobile-full mb-20','pl-15 pr-15 pt-xs-10 header-border-underline no-negative-xs',] },
+		'small':{'class':	['hidden-print txt-no-serif',] },
+		'p':{'class':	['text-xs-center',] },
+		'footer':{'class':	['footer bg-gray-extra',] },
+		'nav':{'class':	['fixed-btn-uai','nav-main','nav-main pt-8 pb-8 pt-xs-7 pb-xs-7'] },
+		'section':{'class':	['bg-gray-extra mt-20','bg-gray-extra'] },
+        'header':{'class':   ['hidden-print header-fixed js-header-fix'] },
+        'aside':{'class':['hidden-print col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-3 mb-35 scroll-linked',] },
+	},
+	'super.abril.com.br':
+	{
+		'header':	{'class':	['header'] },
+		'div':		{'class':	['sidebar-top hidden-xs hidden-sm','widget-cover-container'] },
+		'section':	{'class':	['comments','sidebar-above-footer',] },
+	},
+	'www.gazetadopovo.com.br':
+	{
+		'div':		{'class':	['c-section-header','box-ads-header','header','wrapper','breadcrumb','js-touchpoint c-touchpoint-post-footer','js-touchpoint c-touchpoint-post-footerFixed','c-communication-errors user-report',] },
+		'footer':	{'class':	['c-footer'],},
+	},
+	'gazetaonline.globo.com':
+	{
+		'iframe':	{},
+	}
+}
+
+tags_to_remove = ['script','iframe','noscript','header','style']
+
+def decompose(host,html_text):
+	page = bs.BeautifulSoup(html_text.encode('utf-8'))
+	# remover tags
+	for tag in tags_to_remove:
+		while page.find(tag): page.find(tag).decompose()
+	# remover tags por host
+	host_tags_to_remove = tags_to_remove_by_host.get(host,{})
+	for tag,attrlist in host_tags_to_remove.iteritems():
+		for attr,list_of_values in attrlist.iteritems():
+			for value in list_of_values:
+				while page.find(tag,attrs={attr:value}):
+					page.find(tag,attrs={attr:value}).decompose()
+	return str(page)
+
 def pw_break(url):
 
     proxies = {
@@ -21,13 +73,6 @@ def pw_break(url):
     #url = 'https://www.valor.com.br/agro/6175611/usina-santa-terezinha-do-parana-pede-recuperacao-judicial'
     #url = 'https://super.abril.com.br/sociedade/temer-e-o-setimo-ex-presidente-brasileiro-preso/'
     #url = 'https://www.em.com.br/app/noticia/gerais/2019/03/28/interna_gerais,1041796/desaparecido-em-brumadinho-e-localizado-vivo-apos-dois-meses.shtml'
-
-    '''
-    URL do Estado de Minas possui uma DIV que mostra o paywall
-    <div class="news-blocked-content">...</div>
-    <div class="news-blocked js-news-blocked">...</div>
-    <div class="news-blocked js-news-blocked-login">...</div>
-    '''
 
     url_regex = 'htt(p|ps)://(?P<host>.*?)/.*'
     host = re.match(url_regex,url).group('host')
@@ -43,7 +88,7 @@ def pw_break(url):
     #path = os.path.join('c:\\web2py\\applications\\paywall\\static', filename)
     path_filename = os.path.join('/web/web2py/applications/paywall/static', filename)
     path_metafilename = os.path.join('/web/web2py/applications/paywall/static', metafilename)
-    
+
     if not os.path.exists(path_filename):
 
         #resp = requests.get(url,proxies=proxies,verify=False)
@@ -52,9 +97,19 @@ def pw_break(url):
         resp = session.get(url)
         #text = unicode( resp.text.decode('utf-8',errors='ignore') )
         #text = resp.text.encode('utf-8')
-        text = resp.text
+        html_page = decompose(host,resp.text)
+        
+        page = bs.BeautifulSoup(resp.text.encode('utf-8'))
+        
+        meta['title'] = page.find(attrs={'property':'og:title'}).attrs[1][1] if page.find(attrs={'property':'og:title'}) != None else ''
+        meta['description'] = page.find(attrs={'property':'og:description'}).attrs[1][1] if page.find(attrs={'property':'og:description'}) != None else ''
+        if page.find(attrs={'property':'og:image'}): meta['image'] = page.find(attrs={'property':'og:image'}).attrs[1][1]
+        meta['width'] = page.find(attrs={'property':'og:image:width'}).attrs[1][1] if page.find(attrs={'property':'og:image:width'}) != None else '400'
+        meta['height'] = page.find(attrs={'property':'og:image:height'}).attrs[1][1] if page.find(attrs={'property':'og:image:height'}) != None else '400'
+        meta['url'] = page.find(attrs={'property':'og:url'}).attrs[1][1] if page.find(attrs={'property':'og:url'}) != None else url
         #charset = 'utf-8'
 
+        '''
         if host == 'politica.estadao.com.br':
             html_page = text
         else:
@@ -113,7 +168,7 @@ def pw_break(url):
             html_page = str(page.body)
             #html_page = ''
             #for elem in page.body.contents: html_page += str(elem)
-            #html_page = str(page)
+            #html_page = str(page)'''
 
         with open(path_filename,'w') as fp: fp.write( html_page )
         with open(path_metafilename,'w') as fp: json.dump( meta,fp )
@@ -122,6 +177,6 @@ def pw_break(url):
         html_page = file(path_filename).read()
         meta = json.load( file( path_metafilename ) ) if os.path.exists( path_metafilename ) else {}
 
-    return filename,html_page,meta
+    return filename,meta
 
     #return str(page)

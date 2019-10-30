@@ -9,19 +9,20 @@ from os.path import join
 # ---- example index page ----
 def index():
     response.flash = T("Paywall Breaker")
-    filename = ''
+    filename = 'static.html'
     html_page = ''
     meta = {}
     #return dict(message=T('Welcome to web2py!'))
     if request.vars.url:
-        filename,html_page,meta = paywall.pw_break(request.vars.url)
+        #filename,html_page,meta = paywall.pw_break(request.vars.url)
+        filename,meta = paywall.pw_break(request.vars.url)
         issubmit = True
     else:
         issubmit = False
     return dict(
         url=request.vars.url,
         filename=filename,
-        content=html_page,
+        #content=html_page,
         issubmit=issubmit,
         title=meta.get('title','Paywall'),
         description=meta.get('description','The paywall has been broken'),

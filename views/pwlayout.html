@@ -21,7 +21,7 @@
     <meta property="og:image:width" content="{{=width}}">
     <meta property="og:image:height" content="{{=height}}">
     <meta property="og:url" content="{{=URL('index','?url={0}'.format(url))}}">
-    <title>{{=response.title or request.application}}</title>
+    <title>Paywall Breaker {{=title}}</title>
     {{else:}}
     <meta property="og:title" content="Paywall Breaker">
     <meta property="og:description" content="Break the paywall and be free!">
@@ -29,7 +29,7 @@
     <meta property="og:image" content="{{=image}}">
     <meta property="og:image:width" content="{{=width}}">
     <meta property="og:image:height" content="{{=height}}">
-      <title>Paywall Breaker</title>
+    <title>Paywall Breaker</title>
     {{pass}}
 
     <!-- http://dev.w3.org/html5/markup/meta.name.html -->
@@ -46,6 +46,116 @@
     <!-- All JavaScript at the bottom, except for Modernizr which enables
          HTML5 elements & feature detects -->
     <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
+    <script>
+        window.addEventListener('touchstart', {});
+    </script>
+    <style>
+        .jumbotron {
+            background-color: #f4511e !important; /* Orange */
+            color: #ffffff !important;
+            text-align: center !important;
+            font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif !important;
+            box-sizing: border-box !important;
+         }
+        h1 {
+            font-family: inherit;
+            margin-bottom: .5rem !important;
+            font-weight: 500 !important;
+            font-size: 2.5rem !important;
+        }
+        p {
+            font-weight: 400 !important;
+            display: block !important;
+            margin-block-start: 1em !important;
+            margin-block-end: 1em !important;
+            margin-inline-start: 0px !important;
+            margin-inline-end: 0px !important;
+            font-size: 16px !important;
+        }
+        .form-control {
+            display: block !important;
+            padding: .375rem .75rem !important;
+            font-size: 1rem !important;
+            line-height: 1.5 !important;
+            color: #495057 !important;
+            background-color: #fff !important;
+            background-clip: padding-box !important;
+            border: 1px solid #ced4da !important;
+            border-radius: .25rem !important;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+        }
+        /* smartphones */
+        @media only screen and (max-width: 767px) {
+            .resp-container {
+                position: relative;
+                overflow: hidden;
+                height: 100%;
+                width: 100%;
+                -webkit-overflow-scrolling: touch;
+                overflow-y: scroll;
+            }
+
+            .resp-container-collapsed {
+                padding-top:90%;
+            }
+
+            .resp-container-expanded {
+                padding-top:150%;
+            }
+        }
+
+        /* tablets */
+        @media only screen and (min-width: 768px) {
+            .resp-container {
+                position: relative;
+                overflow: hidden;
+                height: 100%;
+                width: 100%;
+                -webkit-overflow-scrolling: touch;
+                overflow-y: scroll;
+            }
+
+            .resp-container-collapsed {
+                padding-top:75%;
+            }
+
+            .resp-container-expanded {
+                padding-top:120%;
+            }
+        }
+
+        /* desktop */
+        @media only screen and (min-width: 901px) {
+            .resp-container {
+                position: relative;
+                overflow: hidden;
+                height: 100%;
+                width: 100%;
+                padding-top: 50%;
+            }
+
+            .resp-container-collapsed {
+
+            }
+
+            .resp-container-expanded {
+
+            }
+        }
+
+        .resp-iframe {
+            position: absolute;
+            left: 0;
+            top: 0;
+            border: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .resp-button {
+            position: relative;
+        }
+    </style>
     <!-- Favicons -->
     {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
     {{block head}}{{end}}
