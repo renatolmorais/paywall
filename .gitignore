@@ -7,5 +7,6 @@ errors/**
 *.log
 *.pyc
 modules/*.pyc
+modules/*.html
 views/*.bak
 modules/*.bak
