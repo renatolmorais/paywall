@@ -1,3 +1,20 @@
+'''
+js-touchpoint c-touchpoint-post-footer
+js-touchpoint c-touchpoint-post-footerFixed
+c-communication-errors user-report
+breadcrumb
+
+host1
+	tag1 attr1 attr2 ...
+	tag2 attr1 attr2 ...
+host2
+	tag1 attr1 attr2 ...
+	tag2 attr1 attr2 ...
+...
+'''
+
+tags_to_remove = ['script','iframe','noscript','header']
+
 tags_to_remove_by_host = {
 	'www.em.com.br':
 	{
@@ -26,5 +43,3 @@ tags_to_remove_by_host = {
 		'remove':	['iframe'],
 	}
 }
-
-tags_to_remove = ['script','iframe','noscript','header']

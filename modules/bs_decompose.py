@@ -3,26 +3,10 @@
 from requests import Session
 import BeautifulSoup as bs
 from re import match
-from tags import tags_to_remove, host_tags_to_remove
-
-'''js-touchpoint c-touchpoint-post-footer
-js-touchpoint c-touchpoint-post-footerFixed
-c-communication-errors user-report
-breadcrumb
-
-host1
-	tag1 attr1 attr2 ...
-	tag2 attr1 attr2 ...
-host2
-	tag1 attr1 attr2 ...
-	tag2 attr1 attr2 ...
-...'''
+from tags import tags_to_remove, tags_to_remove_by_host
 
 def decompose(host,html_text):
 	page = bs.BeautifulSoup(html_text.encode('utf-8'))
-	'''
-	...
-	'''
 	# remover tags
 	for tag in tags_to_remove:
 		while page.find(tag): page.find(tag).decompose()
