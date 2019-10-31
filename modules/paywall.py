@@ -20,6 +20,7 @@ import json
 tags_to_remove_by_host = {
 	'www.em.com.br':
 	{
+        'remove':['aside'],
 		'div':{'class':	['login-signature-call-bottom hidden-no-important show-loginwall-login-active-inline','nav-side__container','news-card__content','news-blocked-content','news-blocked js-news-blocked','news-blocked js-news-blocked-login','img-mobile-full mb-20','pl-15 pr-15 pt-xs-10 header-border-underline no-negative-xs',] },
 		'small':{'class':	['hidden-print txt-no-serif',] },
 		'p':{'class':	['text-xs-center',] },
@@ -37,12 +38,13 @@ tags_to_remove_by_host = {
 	},
 	'www.gazetadopovo.com.br':
 	{
+        'remove':['aside'],
 		'div':		{'class':	['c-section-header','box-ads-header','header','wrapper','breadcrumb','js-touchpoint c-touchpoint-post-footer','js-touchpoint c-touchpoint-post-footerFixed','c-communication-errors user-report',] },
 		'footer':	{'class':	['c-footer'],},
 	},
 	'gazetaonline.globo.com':
 	{
-		'iframe':	{},
+		'remove':['iframe'],
 	}
 }
 
@@ -56,10 +58,14 @@ def decompose(host,html_text):
 	# remover tags por host
 	host_tags_to_remove = tags_to_remove_by_host.get(host,{})
 	for tag,attrlist in host_tags_to_remove.iteritems():
-		for attr,list_of_values in attrlist.iteritems():
-			for value in list_of_values:
-				while page.find(tag,attrs={attr:value}):
-					page.find(tag,attrs={attr:value}).decompose()
+		if tag == 'remove':
+			for tagname in attrlist:
+				while page.find(tagname): page.find(tagname).decompose()
+		else:
+			for attr,list_of_values in attrlist.iteritems():
+				for value in list_of_values:
+					while page.find(tag,attrs={attr:value}):
+						page.find(tag,attrs={attr:value}).decompose()
 	return str(page)
 
 def pw_break(url):
