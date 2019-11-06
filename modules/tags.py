@@ -1,30 +1,17 @@
-'''
-js-touchpoint c-touchpoint-post-footer
-js-touchpoint c-touchpoint-post-footerFixed
-c-communication-errors user-report
-breadcrumb
-
-host1
-	tag1 attr1 attr2 ...
-	tag2 attr1 attr2 ...
-host2
-	tag1 attr1 attr2 ...
-	tag2 attr1 attr2 ...
-...
-'''
-
-tags_to_remove = ['script','iframe','noscript','header']
+tags_to_remove = ['script','iframe','noscript','header','style']
 
 tags_to_remove_by_host = {
 	'www.em.com.br':
 	{
-		'remove':	['aside'],
-		'div':		{'class':	['login-signature-call-bottom hidden-no-important show-loginwall-login-active-inline','nav-side__container','news-card__content','news-blocked-content','news-blocked js-news-blocked','news-blocked js-news-blocked-login'] },
-		'small':	{'class':	['hidden-print txt-no-serif',] },
-		'p':		{'class':	['text-xs-center',] },
-		'footer':	{'class':	['footer bg-gray-extra',] },
-		'nav':		{'class':	['fixed-btn-uai','nav-main','nav-main pt-8 pb-8 pt-xs-7 pb-xs-7'] },
-		'section':	{'class':	['bg-gray-extra mt-20','bg-gray-extra'] },
+        'remove':['aside'],
+		'div':{'class':	['login-signature-call-bottom hidden-no-important show-loginwall-login-active-inline','nav-side__container','news-card__content','news-blocked-content','news-blocked js-news-blocked','news-blocked js-news-blocked-login','img-mobile-full mb-20','pl-15 pr-15 pt-xs-10 header-border-underline no-negative-xs',] },
+		'small':{'class':	['hidden-print txt-no-serif',] },
+		'p':{'class':	['text-xs-center',] },
+		'footer':{'class':	['footer bg-gray-extra',] },
+		'nav':{'class':	['fixed-btn-uai','nav-main','nav-main pt-8 pb-8 pt-xs-7 pb-xs-7'] },
+		'section':{'class':	['bg-gray-extra mt-20','bg-gray-extra'] },
+        'header':{'class':   ['hidden-print header-fixed js-header-fix'] },
+        'aside':{'class':['hidden-print col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-3 mb-35 scroll-linked',] },
 	},
 	'super.abril.com.br':
 	{
@@ -34,12 +21,21 @@ tags_to_remove_by_host = {
 	},
 	'www.gazetadopovo.com.br':
 	{
-		'remove':	['aside'],
-		'div':		{'class':	['header','wrapper','breadcrumb','js-touchpoint c-touchpoint-post-footer','js-touchpoint c-touchpoint-post-footerFixed','c-communication-errors user-report',] },
+        'remove':['aside'],
+		'div':		{'class':	['c-section-header','box-ads-header','header','wrapper','breadcrumb','js-touchpoint c-touchpoint-post-footer','js-touchpoint c-touchpoint-post-footerFixed','c-communication-errors user-report',] },
 		'footer':	{'class':	['c-footer'],},
 	},
 	'gazetaonline.globo.com':
 	{
-		'remove':	['iframe'],
-	}
+		'remove':['iframe'],
+	},
+    'www1.folha.uol.com.br':
+    {
+        'remove':['svg','path','header','fieldset',],
+        'img':{'class': ['gallery-widget__loading-spin',] },
+        'div':{'id': ['c-sidebar-menu__content',],'class':['gallery-widget-share is-hidden','c-more-options','col col--md-1-3 col-offset--md-1-3 u-visible-md','col col--lg-5-18','u-only-print rs_skip','u-global-margin-bottom-component','c-wildcard-box u-global-margin-bottom-component',], },
+        'ul':{'class':['c-tools-share__list',], },
+        'h3':{'class':['c-subscribe-ads__title',], },
+        'p':{'class':['c-subscribe-ads__description'],},
+    },
 }
