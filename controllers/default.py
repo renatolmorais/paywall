@@ -12,9 +12,7 @@ def index():
     filename = 'static.html'
     html_page = ''
     meta = {}
-    #return dict(message=T('Welcome to web2py!'))
     if request.vars.url:
-        #filename,html_page,meta = paywall.pw_break(request.vars.url)
         filename,meta = paywall.pw_break(request.vars.url)
         issubmit = True
     else:
@@ -22,13 +20,13 @@ def index():
     return dict(
         url=request.vars.url,
         filename=filename,
-        #content=html_page,
         issubmit=issubmit,
         title=meta.get('title','Paywall'),
         description=meta.get('description','The paywall has been broken'),
         image=meta.get('image',URL('static','images/favicon.png')),
         width=meta.get('width','400'),
         height=meta.get('height','400'),
+        charset=meta.get('charset'),
         )
 
 # ---- API (example) -----

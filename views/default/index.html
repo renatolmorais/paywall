@@ -12,12 +12,15 @@
     </form>
 </div>
 
-<!--<button id="hide" class="btn btn-danger" type="button" data-toggle="collapse" data-target="#jumbo" aria-expanded="false" aria-controls="jumbo">Expandir</button>-->
-
 {{if issubmit == True:}}
 
+<div class="container-fluid">
+    <p>
+        URL original: <span>{{=url}}</span>
+    </p>
+</div>
+
 <div id="container" class="container-fluid">
-    <!--<iframe class="resp-iframe" frameborder="0" allow="autoplay" allowfullscreen src="{{=URL('static',filename)}}"></iframe>-->
     {{include '/web/web2py/applications/paywall/static/pages/' + filename}}
 </div>
 

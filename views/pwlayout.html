@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{=T.accepted_language or 'en'}}"> <!--<![endif]-->
   <head>
-    <!--<meta charset="utf-8">-->
     <!-- www.phpied.com/conditional-comments-block-downloads/ -->
     <!-- Always force latest IE rendering engine
          (even in intranet) & Chrome Frame
@@ -21,7 +20,8 @@
     <meta property="og:image:width" content="{{=width}}">
     <meta property="og:image:height" content="{{=height}}">
     <meta property="og:url" content="{{=URL('index','?url={0}'.format(url))}}">
-    <title>Paywall Breaker {{=title}}</title>
+    <meta charset="{{=charset}}">
+    <title>{{=title}}</title>
     {{else:}}
     <meta property="og:title" content="Paywall Breaker">
     <meta property="og:description" content="Break the paywall and be free!">
@@ -29,6 +29,7 @@
     <meta property="og:image" content="{{=image}}">
     <meta property="og:image:width" content="{{=width}}">
     <meta property="og:image:height" content="{{=height}}">
+    <meta charset="utf-8">
     <title>Paywall Breaker</title>
     {{pass}}
 
