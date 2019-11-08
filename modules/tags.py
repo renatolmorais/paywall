@@ -1,3 +1,5 @@
+utf8hosts = ['www.em.com.br',]
+
 tags_to_remove = ['script','iframe','noscript','header','style']
 
 tags_to_remove_by_host = {

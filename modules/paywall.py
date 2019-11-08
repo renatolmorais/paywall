@@ -50,6 +50,8 @@ def pw_break(url,proxies={}):
         html_page = ''
         page = None
         try:
+            from tags import utf8hosts
+            if host in utf8hosts: raise Exception()
             html_page = decompose(host,resp.text.encode('iso-8859-1'))
             page = bs.BeautifulSoup(resp.text.encode('iso-8859-1'))
             meta['charset'] = 'iso-8859-1'
