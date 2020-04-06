@@ -11,23 +11,29 @@ from bs4 import BeautifulSoup
 import json
 
 def decompose(host,html_text):
+    do_not_remove = []
     from tags import tags_to_remove,tags_to_remove_by_host
     page = bs.BeautifulSoup(html_text)
-    # remover tags
-    for tag in tags_to_remove:
-        while page.find(tag):
-            page.find(tag).decompose()
     # remover tags por host
     host_tags_to_remove = tags_to_remove_by_host.get(host,{})
     for tag,attrlist in host_tags_to_remove.iteritems():
         if tag == 'remove':
             for tagname in attrlist:
-                while page.find(tagname): page.find(tagname).decompose()
+                if tagname.startswith('!'):
+                    do_not_remove.append(tagname[1:])
+                else:
+                    while page.find(tagname):
+                        page.find(tagname).decompose()
         else:
             for attr,list_of_values in attrlist.iteritems():
                 for value in list_of_values:
                     while page.find(tag,attrs={attr:value}):
                         page.find(tag,attrs={attr:value}).decompose()
+    # remover tags
+    for tag in tags_to_remove:
+        if not tag in do_not_remove:
+            while page.find(tag):
+                page.find(tag).decompose()
     return str(page.body)
 
 def pw_break(url,proxies={}):
