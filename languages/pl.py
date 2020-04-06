@@ -138,6 +138,7 @@
 'Overview': 'Overview',
 'Password': 'Hasło',
 "Password fields don't match": 'Pola hasła nie są zgodne ze sobą',
+'Paywall Breaker': 'Paywall Breaker',
 'Permission': 'Permission',
 'Permissions': 'Permissions',
 'Plugins': 'Plugins',

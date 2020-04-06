@@ -154,6 +154,7 @@
 'password': 'mot de passe',
 'Password': 'Mot de passe',
 "Password fields don't match": 'Les mots de passe ne correspondent pas',
+'Paywall Breaker': 'Paywall Breaker',
 'Permission': 'Permission',
 'Permissions': 'Permissions',
 'please input your password again': "S'il vous plaît entrer votre mot de passe à nouveau",
